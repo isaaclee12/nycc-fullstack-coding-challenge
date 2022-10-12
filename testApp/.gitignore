@@ -1,1 +1,2 @@
 *.pyc
+/testApp/frontend/node_modules
