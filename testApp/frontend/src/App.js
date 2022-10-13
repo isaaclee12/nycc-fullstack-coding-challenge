@@ -7,6 +7,7 @@ import axios from 'axios';
 import './App.css';
 
 // Import other components
+import NavBar from './Nav';
 import Complaints from './Complaints';
 import Login from './Login';
 
@@ -25,39 +26,23 @@ function App() {
 
   return (
     <div className="App">
+      {/* NavBar */}
+      <NavBar/>
+
       {/* TESTING GET */}
-      <p>Below should be the response for "/admin/"</p>
-      <div>{post}</div>
+      {/* <p>Below should be the response for "/admin/"</p> */}
+      {/* <div>{post}</div> */}
 
       {/* ROUTES */}
-      <BrowserRouter>
-        <Routes>
-          <Route path ="/">
-            <Route exact path='complaints' element={<Complaints/>}></Route>
-            <Route exact path='admin' element={<Login/>}></Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path ="/">
+          <Route exact path='admin' element={<Login/>}></Route>
+          <Route exact path='complaints' element={<Complaints/>}></Route>
+        </Route>
+      </Routes>
       
 
-      {/* LOGIN BELOW */}
-      <center> <h1> City Council Complaint Database Login </h1>   
-      <form method="POST">     
-      
-            <label>Username : </label>   
-              <input type="text" placeholder="Enter Username" name="username" required/>  
 
-            <br/>
-            
-            <label>Password : </label>   
-              <input type="password" placeholder="Enter Password" name="password" required/>
-            
-            <br/>
-
-            <input type="submit" value="Submit"/>
-
-      </form>     
-      </center>
     </div>
   );
 }
