@@ -14,7 +14,7 @@ export default class Complaints extends Component {
 
     populateData() {
         try {
-            fetch(API_URL+'api/complaints').then(
+            fetch(API_URL+'api/complaints',  {mode: "no-cors"}).then(
                 response => response.json().then(
                     data=>{
                         this.setState({complaints:data});

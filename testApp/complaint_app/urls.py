@@ -19,4 +19,5 @@ router.register(r'topComplaints', TopComplaintTypeViewSet, base_name='topComplai
 
 urlpatterns = [
 ]
+
 urlpatterns += router.urls
