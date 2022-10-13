@@ -1,4 +1,5 @@
-import React, {Component} from "react";
+import React, {Component, useState, useEffect} from "react";
+import axios from 'axios';
 
 const API_URL = "http://localhost:8000/"
 export default class Complaints extends Component {
@@ -14,7 +15,7 @@ export default class Complaints extends Component {
 
     populateData() {
         try {
-            fetch(API_URL+'api/complaints',  {mode: "no-cors"}).then(
+            fetch(API_URL+'api/complaints', {mode: "no-cors"}).then(
                 response => response.json().then(
                     data=>{
                         this.setState({complaints:data});
@@ -33,6 +34,18 @@ export default class Complaints extends Component {
 
 
     render() {
+
+        // useState here is used to manage the response recieved from the Django API
+        const [post, setPost] = useState(null);
+
+        // useEffect runs only once on page load and manages HTTP requests via axios
+        useEffect(() => {
+            axios.get("http://localhost:8000/complaints/").then(
+            (response) => {
+                setPost(response.data)
+            }
+            )
+        }, []) // "[]" here causes a singular run at the first render
 
         // declare complaints var
         const {

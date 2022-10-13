@@ -5,8 +5,8 @@ from .views import ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopCo
 # NOTE: These urls extend the urls in testApp/urls.py
 router = routers.SimpleRouter()
 
-# /api/complaints/complaint-list
-router.register(r'complaint-list', ComplaintViewSet, base_name='complaint')
+# /api/complaints/
+router.register(r'', ComplaintViewSet, base_name='complaint')
 
 # api/complaints/openCases
 router.register(r'openCases', OpenCasesViewSet, base_name='openCases')

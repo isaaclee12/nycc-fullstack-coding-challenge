@@ -5,16 +5,11 @@ from rest_framework.parsers import JSONParser
 from rest_framework.decorators import action
 
 from django.http.response import JsonResponse
+from django.contrib.auth import authenticate
 
 from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
-
-
-# Create your views here.
-
-
-# TODO: This is the API part.
 
 class ComplaintViewSet(viewsets.ModelViewSet):
 
