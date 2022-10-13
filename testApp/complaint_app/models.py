@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-# Create your models here.
+# This reflects the "complaint_app_userprofile" table
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
   full_name = models.CharField(max_length=150, blank=True, default="")
@@ -12,6 +12,7 @@ class UserProfile(models.Model):
   def __str__(self):
     return str(self.user)
     
+# This reflects the "complaint_app_complaint" table
 class Complaint(models.Model):
   unique_key = models.CharField(max_length=150, blank=True, default="")
   account = models.CharField(max_length=10, blank=True, default="", null=True)
