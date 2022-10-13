@@ -3,6 +3,7 @@ import axios from 'axios';
 
 export default class Login extends Component {
 
+    // Constructor
     constructor(props) {
         super(props);
 
@@ -14,30 +15,50 @@ export default class Login extends Component {
         }
     }
 
+    // Change handlers, i.e. setters
+    onUsernameInputChange = e => {
+        this.setState({
+            usernameInput: e.target.value
+        });
+    }
+    // Change handlers, i.e. setters
+    onPasswordInputChange = e => {
+        this.setState({
+            passwordInput: e.target.value
+        });
+    }
+    // Change handlers, i.e. setters
+    onSubmitChange = e => {
+        this.setState({
+            submit: e.target.value
+        });
+    }
 
-
-    handleLogin = userInput => {
-        axios.post("http://localhost:8000/login/", {
-                username: this.state.usernameInput,
-                password: this.state.passwordInput 
-            }).then(
-                (response) => {
-                    console.log(response.data)
-                    this.state.dataResponse = response.data
-                }
-            )
+    // Handle Login
+    handleLogin = e => {
+        // axios.post("http://localhost:8000/login/", {
+        //         username: this.state.usernameInput,
+        //         password: this.state.passwordInput 
+        //     }).then(
+        //         (response) => {
+        //             console.log(response.data)
+        //             this.setState ({
+        //                 dataResponse: response.data
+        //             })
+        //         }
+        //     )
+        e.preventDefault();
+        const data = {
+            username: this.state.usernameInput,
+            password: this.state.password
+        };
+        axios
+            .post("http://localhost:8000/login/", data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     render() {
-
-        // Define component state vars in this function
-        const {
-            usernameInput
-        } = this.state.usernameInput
-
-        const {
-            passwordInput
-        } = this.state.passwordInput
 
         return(
             <div>
@@ -46,16 +67,17 @@ export default class Login extends Component {
                 <form method="POST">     
                 
                         <label>Username : </label>   
-                        <input type="text" placeholder="Enter Username" value={this.state.usernameInput} id="username" required/>  
-
+                        <input type="text" placeholder="Enter Username" value={this.state.usernameInput} 
+                        onChange={this.onUsernameInputChange} id="username" required/>  
                         <br/>
                         
                         <label>Password : </label>   
-                        <input type="password" placeholder="Enter Password" value={this.state.passwordInput} id="password" required/>
-                        
+                        <input type="password" placeholder="Enter Password" value={this.state.passwordInput} 
+                        onChange={this.onPasswordInputChange} id="password" required/>
                         <br/>
 
-                        <input type="submit" id="submit" value="Submit"/>
+                        <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/>
+ 
                         {/* TODO: 
                         if authenticated:
                             goto /complaints/

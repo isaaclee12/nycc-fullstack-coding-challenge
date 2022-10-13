@@ -15,6 +15,7 @@ export default class Complaints extends Component {
 
     populateData() {
         try {
+            // TODO: turn this into axios
             fetch(API_URL+'api/complaints', {mode: "no-cors"}).then(
                 response => response.json().then(
                     data=>{
