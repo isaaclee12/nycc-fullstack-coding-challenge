@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import JSONParser
@@ -10,9 +10,6 @@ from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
 
-# TODO: Remove the below code BEFORE finalizing project for security reasons.
-from django.views.decorators.csrf import csrf_exempt; 
-@csrf_exempt
 
 # Create your views here.
 
@@ -20,14 +17,12 @@ from django.views.decorators.csrf import csrf_exempt;
 # TODO: This is the API part.
 
 class ComplaintViewSet(viewsets.ModelViewSet):
-  http_method_names = ['GET', 'POST']
-  serializer_class = ComplaintSerializer
 
-  @action(methods=['get'], detail=False)
+  http_method_names = ['get']
+
   def list(self, request):
     
     # Get all complaints from the user's district, i.e. Read method
-
     # Get all of the data for complaints via the Complain model (This automatically pulls from the SQL DB via Django's ORM)
     complaint_list = Complaint.objects.all()
 
