@@ -8,6 +8,10 @@ from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
 
+# TODO: Remove the below code BEFORE finalizing project for security reasons.
+from django.views.decorators.csrf import csrf_exempt; 
+@csrf_exempt
+
 # Create your views here.
 
 
