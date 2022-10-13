@@ -1,13 +1,14 @@
 // import libraries
-import React, {useState, useEffect, BrowserRouter, Route, Switch} from 'react';
+import React, {useState, useEffect} from 'react';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import axios from 'axios';
 
 // import css
 import './App.css';
 
 // Import other components
-import {Complaints} from './Complaints';
-import {Login} from './Login';
+import Complaints from './Complaints';
+import Login from './Login';
 
 function App() {
   // useState here is used to manage the "post", i.e. response recieved from the Django API
@@ -30,10 +31,12 @@ function App() {
 
       {/* ROUTES */}
       <BrowserRouter>
-        <Route path ="/">
-          <Route path='complaints' component={<Complaints/>}/>
-          <Route path='admin' component={<Login/>}/>
-        </Route>
+        <Routes>
+          <Route path ="/">
+            <Route exact path='complaints' element={<Complaints/>}></Route>
+            <Route exact path='admin' element={<Login/>}></Route>
+          </Route>
+        </Routes>
       </BrowserRouter>
       
 

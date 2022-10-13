@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-export class Complaints extends Component {
+export default class Complaints extends Component {
     render() {
         return(
             <div>
