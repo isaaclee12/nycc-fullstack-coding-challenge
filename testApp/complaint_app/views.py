@@ -9,11 +9,12 @@ from rest_framework import viewsets, status
 
 # Response = response that can be rendered into multiple content types for ease 
 from rest_framework.response import Response
-
 # 
 from rest_framework.parsers import JSONParser
 
 from rest_framework.decorators import action
+
+from django.contrib.auth.models import User
 
 from django.http.response import JsonResponse
 from django.contrib.auth import authenticate
@@ -21,6 +22,9 @@ from django.contrib.auth import authenticate
 from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
+class UserViewSet(viewsets.ModelViewSet):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
 
 class ComplaintViewSet(viewsets.ModelViewSet):
 

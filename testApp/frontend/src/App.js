@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import {Route, Routes} from 'react-router-dom';
 
 // Import other components
-import NavBar from './NavBar';
-import Complaints from './Complaints';
-import Login from './Login';
+import NavBar from './components/NavBar';
+import Complaints from './components/Complaints';
+import Login from './components/Login';
 
 
 function App() {

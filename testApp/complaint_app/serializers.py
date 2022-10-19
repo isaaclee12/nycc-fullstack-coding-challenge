@@ -10,7 +10,10 @@ from rest_framework import serializers
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','username', 'first_name','last_name')
+        fields = ('id','username', 'password', 'first_name','last_name')
+        # Add encryption to password, and make it write only so it can't be read by get requests
+        # TODO: Uncomment and Comment as needed for debugging
+        extra_kwags = {'password': {'write_only': True, 'required': True}}
 
 class UserProfileSerializer(serializers.ModelSerializer):
     # TODO: BONUS Task: Flatten out the User object inside of UserProfile.
