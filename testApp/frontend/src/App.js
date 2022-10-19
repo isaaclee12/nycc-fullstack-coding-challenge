@@ -2,9 +2,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 
-// import css
-import './App.css';
-
 // Import other components
 import NavBar from './Nav';
 import Complaints from './Complaints';
