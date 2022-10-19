@@ -1,6 +1,5 @@
 // This file is responsible for rendering the Login screen.
 import React, {Component} from "react";
-import axios from 'axios';
 
 export default class Login extends Component {
 
@@ -37,26 +36,42 @@ export default class Login extends Component {
 
     // Handle Login
     handleLogin = e => {
-        // axios.post("http://localhost:8000/login/", {
-        //         username: this.state.usernameInput,
-        //         password: this.state.passwordInput 
-        //     }).then(
-        //         (response) => {
-        //             console.log(response.data)
-        //             this.setState ({
-        //                 dataResponse: response.data
-        //             })
-        //         }
-        //     )
+
         e.preventDefault();
-        const data = {
-            username: this.state.usernameInput,
+
+        const user = {
+            username: this.state.username,
             password: this.state.password
         };
-        axios
-            .post("http://localhost:8000/login/", data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+
+        // Debug
+        console.log(user);
+
+        fetch('http://localhost:8000/login/', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {                
+                "Access-Control-Allow-Origin": "http://localhost:8000/",
+                "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT",
+                "Access-Control-Allow-Headers": "Content-Type",
+                "Content-Type": 'application-json'
+            },
+            body: JSON.stringify(user)
+        })
+
+        .then(response => response.json())
+        .then(data => {
+            if (data.key) {
+                localStorage.clear();
+                localStorage.setItem('token', data.key);
+                window.location.replace('http://localhost:3000/');
+            } else {
+                localStorage.clear();
+            }
+        })
+        .catch(err => {
+            console.log("Error: Failure when processing login: " + err);
+        })
     }
 
     render() {
@@ -64,20 +79,32 @@ export default class Login extends Component {
         return(
             <div>
                 {/* LOGIN BELOW */}
-                <center> <h1> City Council Complaint Database Login </h1>   
-                <form method="POST">     
+                <center> <h1> City Council Complaint Database Login </h1>
+
+                   {/* Form that will call handleLogin() on submit */}
+                <form onSubmit={this.handleLogin} method="POST">     
                 
                         <label>Username : </label>   
-                        <input type="text" placeholder="Enter Username" value={this.state.usernameInput} 
-                        onChange={this.onUsernameInputChange} id="username" required/>  
+                        <input 
+                            type="text" 
+                            placeholder="Enter Username" 
+                            value={this.state.usernameInput} 
+                            onChange={this.onUsernameInputChange} 
+                            id="username" 
+                            required/>  
                         <br/>
                         
                         <label>Password : </label>   
-                        <input type="password" placeholder="Enter Password" value={this.state.passwordInput} 
-                        onChange={this.onPasswordInputChange} id="password" required/>
+                        <input 
+                            type="password" 
+                            placeholder="Enter Password" 
+                            value={this.state.passwordInput} 
+                            onChange={this.onPasswordInputChange} 
+                            id="password" 
+                            required/>
                         <br/>
 
-                        <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/>
+                        <input type="submit" id="submit" value="Submit"/>
  
                         {/* TODO: 
                         if authenticated:

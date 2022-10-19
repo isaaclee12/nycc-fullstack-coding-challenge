@@ -2,57 +2,55 @@
 import React, {Component, useState, useEffect} from "react";
 import {NavLink} from 'react-router-dom';
 
-export default class NavBar extends Component { 
-
+const NavBar = () => { 
     
+    // const isAuth = true
+    const [isAuth, setIsAuth] = useState(false);
 
-    render() {
+    useEffect(() => {
+        if (localStorage.getItem('token') !== null) {
+        setIsAuth(true);
+        }
+    }, []);
 
-        const [isAuth, setIsAuth] = useState(false);
+    return(
+        <div>
+            <nav>
+                <ul>
+                    <li>
+                        <NavLink to="/home">
+                            Home
+                        </NavLink>
+                    </li>
+                    {isAuth === false ? (
+                        <div>
+                            <li>
+                                <NavLink to="/login">
+                                    Login
+                                </NavLink>
+                            </li>
+                        </div>
+                    ) : (
+                        <div>
+                            <li>
+                                <NavLink to="/complaints">
+                                    Complaints
+                                </NavLink>
+                            </li>
 
-        useEffect(() => {
-            if (localStorage.getItem('token') !== null) {
-            setIsAuth(true);
-            }
-        }, []);
-        no
-        return(
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <NavLink to="/home">
-                                Home
-                            </NavLink>
-                        </li>
-                        {isAuth === true ? (
-                            <div>
-                                <li>
-                                    <NavLink to="/login">
-                                        Login
-                                    </NavLink>
-                                </li>
-                            </div>
-                        ) : (
-                            <div>
-                                <li>
-                                    <NavLink to="/complaints">
-                                        Complaints
-                                    </NavLink>
-                                </li>
+                            <li>
+                                <NavLink to="/logout">
+                                    Logout
+                                </NavLink>
+                            </li>
+                        </div>
+                    )
+                    }
 
-                                <li>
-                                    <NavLink to="/logout">
-                                        Logout
-                                    </NavLink>
-                                </li>
-                            </div>
-                        )
-                        }
-
-                    </ul>
-                </nav>
-            </div>
-        )
-    }
+                </ul>
+            </nav>
+        </div>
+    )
 }
+
+export default NavBar;

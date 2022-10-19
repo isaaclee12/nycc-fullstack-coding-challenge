@@ -47,7 +47,7 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     response = Response("testing", status=status.HTTP_200_OK)
 
     # Set HTTP Headers for the response to whitelist on CORS and such
-    response["Access-Control-Allow-Origin"] = "http://localhost:3000/"
+    response["Access-Control-Allow-Origin"] = "*" #TODO: Switch this back to this --> "http://localhost:3000/"
     response["Access-Control-Allow-Methods"] = "GET,OPTIONS,POST,PUT"
     response["Access-Control-Allow-Headers"] = "Content-Type"
     # response["Access-Control-Max-Age"] = "1000"

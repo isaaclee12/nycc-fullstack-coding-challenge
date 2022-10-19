@@ -1,6 +1,5 @@
 // This file contains the code for getting complaints
 import React, {Component, useState, useEffect} from "react";
-import axios from 'axios';
 
 const API_URL = "http://localhost:8000/"
 export default class Complaints extends Component {
@@ -15,19 +14,31 @@ export default class Complaints extends Component {
     }
 
     populateData() {
-        try {
-            // TODO: turn this into axios
-            fetch(API_URL+'api/complaints').then( //{mode: "cors"}
-                response => response.json().then(
-                    data=>{
-                        this.setState({complaints:data});
-                    }
-                )       
-            )
-        } catch(err) {
-            console.log(err)
-        }
-
+        fetch(API_URL+'api/complaints',{
+          method: "GET",
+          mode: "no-cors",
+          headers: {
+            // 'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "http://localhost:8000/",
+            "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT",
+            "Access-Control-Allow-Headers": "Content-Type"
+          }
+        })
+          .then((response) => response.json()
+          .then((json) => {
+            console.log(json);
+          })
+            //     data=>{
+            //         this.setState({complaints:data});
+            //     }
+            // )       
+        ).catch(
+          (error) => {
+            console.log("Error fetching complaint data:" + error)
+          }
+        ).finally(
+          console.log("bwah")
+        )
     }
 
     componentDidMount() {
