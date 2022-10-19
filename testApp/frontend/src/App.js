@@ -1,12 +1,102 @@
 // import libraries
 import React, {Component} from 'react';
 import {Route, Routes} from 'react-router-dom';
+import axios from 'axios';
 
 // Import other components
-import NavBar from './Nav';
+import NavBar from './NavBar';
 // import Complaints from './Complaints';
-import Login from './Login';
+// import Login from './Login';
 
+class Login extends Component {
+
+    // Constructor
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            usernameInput: "",
+            passwordInput: "",
+            submit: false,
+            dataResponse: {}
+        }
+    }
+
+    // Change handlers, i.e. setters
+    onUsernameInputChange = e => {
+        this.setState({
+            usernameInput: e.target.value
+        });
+    }
+    // Change handlers, i.e. setters
+    onPasswordInputChange = e => {
+        this.setState({
+            passwordInput: e.target.value
+        });
+    }
+    // Change handlers, i.e. setters
+    onSubmitChange = e => {
+        this.setState({
+            submit: e.target.value
+        });
+    }
+
+    // Handle Login
+    handleLogin = e => {
+        // axios.post("http://localhost:8000/login/", {
+        //         username: this.state.usernameInput,
+        //         password: this.state.passwordInput 
+        //     }).then(
+        //         (response) => {
+        //             console.log(response.data)
+        //             this.setState ({
+        //                 dataResponse: response.data
+        //             })
+        //         }
+        //     )
+        e.preventDefault();
+        const data = {
+            username: this.state.usernameInput,
+            password: this.state.password
+        };
+        axios
+            .post("http://localhost:8000/login/", data)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
+
+    render() {
+
+        return(
+            <div>
+                {/* LOGIN BELOW */}
+                <center> <h1> City Council Complaint Database Login </h1>   
+                <form method="POST">     
+                
+                        <label>Username : </label>   
+                        <input type="text" placeholder="Enter Username" value={this.state.usernameInput} 
+                        onChange={this.onUsernameInputChange} id="username" required/>  
+                        <br/>
+                        
+                        <label>Password : </label>   
+                        <input type="password" placeholder="Enter Password" value={this.state.passwordInput} 
+                        onChange={this.onPasswordInputChange} id="password" required/>
+                        <br/>
+
+                        <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/>
+ 
+                        {/* TODO: 
+                        if authenticated:
+                            goto /complaints/
+                        else:
+                            stay on this page, display error */}
+
+                </form>     
+                </center>
+            </div>
+        )
+    }
+}
 
 
 const API_URL = "http://localhost:8000/"
@@ -27,8 +117,9 @@ class Complaints extends Component {
           mode: "cors",
           headers: {
             // 'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "http://localhost:5000",
-            // "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT"
+            "Access-Control-Allow-Origin": "http://localhost:5000/",
+            "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT",
+            "Access-Control-Allow-Headers": "Content-Type"
           }
         })
           .then((response) => response.json()
@@ -131,16 +222,19 @@ function App() {
       {/* <div>{post}</div> */}
 
       {/* ROUTES */}
-      <Routes>
+      {/* <Routes>
         <Route path ="/">
           <Route exact path='' element={<Login/>}></Route>
           <Route exact path='complaints' element={<Complaints/>}></Route>
         </Route>
-      </Routes>
+      </Routes> */}
       
 
       {/* Testing complaints */}
+      <Login/>
+      
       <Complaints/>
+      
 
     </div>
   );

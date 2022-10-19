@@ -1,8 +1,18 @@
+# This is the API code that handles REST requests/responses
+
+# HTTPResponse allows you to HTML as a response 
 from http.client import HTTPResponse
+
+# Viewsets = class-based views that use "list" and "create" instead of "get"
+# Status = set of status codes e.g. 404, 200
 from rest_framework import viewsets, status
+
+# Response = response that can be rendered into multiple content types for ease 
 from rest_framework.response import Response
-from rest_framework import status
+
+# 
 from rest_framework.parsers import JSONParser
+
 from rest_framework.decorators import action
 
 from django.http.response import JsonResponse
@@ -26,7 +36,7 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     # complaint_serializer = ComplaintSerializer(complaint_list, context={"request": request}, many=True)
 
     # # Send it as a JsonResponse for React to process
-    # response = JsonResponse(complaint_serializer.complaint_list, safe=False) # safe = false tells django that this is a valid format
+    # response = JsonResponse(complaint_serializer.data, safe=False) # safe = false tells django that this is a valid format
 
     # response = JsonResponse(
     #   {
@@ -34,17 +44,17 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     #   }
     # )
 
-    response = HTTPResponse("testing")
+    response = Response("testing", status=status.HTTP_200_OK)
 
     # Set HTTP Headers for the response to whitelist on CORS and such
-    response["Access-Control-Allow-Origin"] = "http://localhost:3000"
-    # response["Access-Control-Allow-Methods"] = "GET"
+    response["Access-Control-Allow-Origin"] = "http://localhost:3000/"
+    response["Access-Control-Allow-Methods"] = "GET,OPTIONS,POST,PUT"
+    response["Access-Control-Allow-Headers"] = "Content-Type"
     # response["Access-Control-Max-Age"] = "1000"
-    # response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
 
     print(response)
 
-    return response
+    return (response)
 
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
