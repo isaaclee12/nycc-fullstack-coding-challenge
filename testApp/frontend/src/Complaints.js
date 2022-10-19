@@ -1,3 +1,4 @@
+// This file contains the code for getting complaints
 import React, {Component, useState, useEffect} from "react";
 import axios from 'axios';
 
@@ -16,7 +17,7 @@ export default class Complaints extends Component {
     populateData() {
         try {
             // TODO: turn this into axios
-            fetch(API_URL+'api/complaints', {mode: "no-cors"}).then(
+            fetch(API_URL+'api/complaints').then( //{mode: "cors"}
                 response => response.json().then(
                     data=>{
                         this.setState({complaints:data});
@@ -36,17 +37,17 @@ export default class Complaints extends Component {
 
     render() {
 
-        // useState here is used to manage the response recieved from the Django API
-        const [post, setPost] = useState(null);
+        // // useState here is used to manage the response recieved from the Django API
+        // const [post, setPost] = useState(null);
 
-        // useEffect runs only once on page load and manages HTTP requests via axios
-        useEffect(() => {
-            axios.get("http://localhost:8000/complaints/").then(
-            (response) => {
-                setPost(response.data)
-            }
-            )
-        }, []) // "[]" here causes a singular run at the first render
+        // // useEffect runs only once on page load and manages HTTP requests via axios
+        // useEffect(() => {
+        //     axios.get("http://localhost:8000/complaints/").then(
+        //     (response) => {
+        //         setPost(response.data)
+        //     }
+        //     )
+        // }, []) // "[]" here causes a singular run at the first render
 
         // declare complaints var
         const {

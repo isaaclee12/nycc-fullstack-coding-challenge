@@ -1,5 +1,10 @@
 from django.contrib.auth.models import User
 from .models import UserProfile, Complaint
+
+# These are serializers, i.e. the things that make 
+# wacky SQL data into Python read-able data and vice versa
+# Pretty self explanitory
+
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):

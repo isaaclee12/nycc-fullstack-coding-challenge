@@ -1,3 +1,5 @@
+// This is the highest level React file, which renders App.js using the DOM
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';

@@ -1,3 +1,4 @@
+// This file is responsible for rendering the Login screen.
 import React, {Component} from "react";
 import axios from 'axios';
 

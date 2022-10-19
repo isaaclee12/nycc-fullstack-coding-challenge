@@ -25,7 +25,16 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     complaint_serializer = ComplaintSerializer(complaint_list, context={"request": request}, many=True)
 
     # Send it as a JsonResponse for React to process
-    return JsonResponse(complaint_serializer.complaint_list, safe=False) # safe = false tells django that this is a valid format
+    response = JsonResponse(complaint_serializer.complaint_list, safe=False) # safe = false tells django that this is a valid format
+
+    # Set HTTP Headers for the response to whitelist on CORS and such
+    response["Access-Control-Allow-Origin"] = "http://localhost:3000/complaints"
+    response["Access-Control-Allow-Methods"] = "GET"
+    response["Access-Control-Max-Age"] = "1000"
+    response["Access-Control-Allow-Headers"] = "X-Requested-With, Content-Type"
+
+    return response
+
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
   http_method_names = ['get']
