@@ -4,7 +4,6 @@ from django.db import models # Basic model object framework thing
 from django.contrib.auth.models import User # "User" object from Django's authentication system 
 # NOTE: Fields of this "User" object match fields in the "auth_user" table
 
-
 from django.conf import settings # Imports settings.py
 
 from django.db.models.signals import post_save # This is a signal that's triggered after we save anything to the database using save()
@@ -21,6 +20,8 @@ from django.dispatch import receiver # This is what recieves the signal "post_sa
 # (See: https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication)
 from rest_framework.authtoken.models import Token 
 
+
+
 # NOTE: Token handler requires CORS and Authentication vars to be modified in the
 # HTTP Header using Django's middleware features
 # (See: https://docs.djangoproject.com/en/4.1/topics/http/middleware/#writing-your-own-middleware)
@@ -32,6 +33,8 @@ from rest_framework.authtoken.models import Token
 # token = Token.objects.create(user=[Insert User Object Here, I Think])
 
 """
+NOTE FOR SELF:
+
 For clients to authenticate, the token key should be included in the Authorization HTTP header.
 The key should be prefixed by the string literal "Token", with whitespace separating the two strings.
 For example:

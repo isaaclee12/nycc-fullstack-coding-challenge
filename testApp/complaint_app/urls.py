@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework import routers
-from .views import UserViewSet, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet
+from .views import generateTokens, UserViewSet, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet
 
 # Create a simple rest framework router
 router = routers.SimpleRouter()
@@ -25,6 +25,8 @@ router.register(r'topComplaints', TopComplaintTypeViewSet, basename='topComplain
 
 # leave this empty in case we need to add any singular url to function maps
 urlpatterns = [
+    # api/complaints/generateTokens, which I only called once to generate token for everyone automatically.
+    path('generateTokens/', generateTokens)
 ]
 
 # Add all the router urls to the urlpatterns

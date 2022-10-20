@@ -12,7 +12,7 @@ from rest_framework.response import Response
 # 
 from rest_framework.parsers import JSONParser
 
-from rest_framework.decorators import action
+from rest_framework.decorators import (action, api_view)
 
 from django.contrib.auth.models import User
 
@@ -23,6 +23,18 @@ from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
 from rest_framework.authtoken.models import Token
+
+# Function that only needs to be run once to generate tokens for all users in the auth_user table.
+@api_view(('GET',))
+def generateTokens(request):
+  # The code below generates tokens for all users, may only need to run this once:
+  try:
+    for user in User.objects.all():
+        Token.objects.get_or_create(user=user)
+        print("Generated token for user:", user)
+    return Response("Sucessfully generated tokens for all users")
+  except:
+    return Response("Error: Could not generate tokens")
 
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
@@ -43,7 +55,7 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     complaint_serializer = ComplaintSerializer(complaint_list, many=True)
 
     # Send it as a JsonResponse for React to process
-    return Response(self.complaint_serializer.data) # safe = false tells django that this is a valid format
+    return Response(complaint_serializer.data) # safe = false tells django that this is a valid format
 
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
