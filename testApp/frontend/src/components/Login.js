@@ -4,27 +4,45 @@ import React, {Component, useState} from "react";
 class Login extends Component {
 
     state = {
-        credentials: {username: "", password: ""}
+        username: "",
+        password: ""
     }
 
     // This function changes the state-variables to the user's form input
-    setCredentials = event => {
-        const creds = this.state.credentials; // Make a copy of the credentials object
-        creds[event.target.name] = event.target.value; // Set the state var to the value of the form field's var
-        this.setState({credentials: creds}); // Set the original values
+    // setCredentials = event => {
+    //     const creds = this.state.credentials; // Make a copy of the credentials object
+    //     creds[event.target.name] = event.target.value; // Set the state var to the value of the form field's var
+    //     this.setState({credentials: creds}); // Set the original values
+    // }
+
+    setUsername = event => {
+        this.setState({username: event.target.value});
+    }
+
+    setPassword = event => {
+        this.setState({password: event.target.value});
     }
 
     // Handle Login
     handleLogin = event => {
 
-        console.log("login sent, " + this.state.credentials)
+        const user = {
+            username: this.state.username,
+            password: this.state.password
+        }
+
+        console.log("login sent, " + JSON.stringify(user))
 
         fetch('http://localhost:8000/login/', {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(this.state.credentials)
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': 'Token 04147e7b4c0221ff2e8be1fd5162eaac2dbd9ee5'
+            },
+            body: JSON.stringify(user)
         })
 
+        .then(response => response.json )
         .then(
             data => {
                 console.log(data);
@@ -75,7 +93,7 @@ class Login extends Component {
         // .catch(err => {
         //     console.log("Error: Failure when processing login: " + err);
         // })
-    }
+    };
 
 
     render() {
@@ -93,7 +111,7 @@ class Login extends Component {
                             type="text" 
                             placeholder="Enter Username" 
                             // value={this.state.credentials.username} 
-                            onChange={this.setCredentials}
+                            onChange={this.setUsername}
                             id="username" 
                             required/>  
                         <br/>
@@ -103,7 +121,7 @@ class Login extends Component {
                             type="password" 
                             placeholder="Enter Password" 
                             // value={this.state.credentials.password} 
-                            onChange={this.setCredentials}
+                            onChange={this.setPassword}
                             id="password" 
                             required/>
                         <br/>

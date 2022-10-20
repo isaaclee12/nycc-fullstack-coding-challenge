@@ -22,6 +22,8 @@ from django.contrib.auth import authenticate
 from .models import UserProfile, Complaint
 from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
+from rest_framework.authtoken.models import Token
+
 class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
