@@ -29,13 +29,13 @@ const Login = () => {
     // Handle Login
     const handleLogin = event => {
 
+        let redirectTo = "";
+
         event.preventDefault();
 
         const user = {
-            // username: state.username,
-            // password: state.password
-            username: 'isaac',
-            password: '5FX8fNGHtrA5%Rz#'
+            username: state.username,
+            password: state.password
         }
 
         console.log("Sending login:" + JSON.stringify(user))
@@ -50,7 +50,7 @@ const Login = () => {
             body: JSON.stringify(user)
         })
 
-        .then(response => response.json())// response => response.json)
+        .then(response => response.json()
         .then(
             json => {
                 // Debug
@@ -59,57 +59,79 @@ const Login = () => {
                 // Set token for session to token returned from API
                 localStorage.setItem("userToken", json.token);
 
-                // Send user to the complaints page
-                navigate('/complaints');
+                if (json.token !== undefined) {
+                    // Send user to the complaints page
+                    navigate('/complaints');
+                }
             }
-        )
+
+        ))// response => response.json)
+        
 
         .catch(
-            error => console.error(error)
+            error => console.error(error),
+            navigate('/')
             // TODO: Make this a thing: history.push('login-fail/')
+        )
+
+        .finally(
+            // Set loading var to false
+            setLoading(false)
         );
     };
+
+    // code for loading or not
+    const [loading, setLoading] = useState(false);
 
     return(
         <div>
             {/* LOGIN BELOW */}
             <center> <h1> City Council Complaint Database Login </h1>
 
-                {/* Form that will call handleLogin() on submit 
-                TODO: method="POST"*/}
-            <form >     
+            {/* Form that will call handleLogin() on submit TODO: method="POST"*/}
+
+            {loading ? 
+
+            // Loading is true, show loading screen
+
+            <div>
+                <h1>Loading...</h1>
+            </div>
+
+            :
+
+            // Loading is false (default), show login form
             
-                    <label>Username : </label>   
-                    <input 
-                        type="text" 
-                        placeholder="Enter Username" 
-                        // value={state.credentials.username} 
-                        onChange={setUsername}
-                        id="username" 
-                        required/>  
-                    <br/>
-                    
-                    <label>Password : </label>   
-                    <input 
-                        type="password" 
-                        placeholder="Enter Password" 
-                        // value={state.credentials.password} 
-                        onChange={setPassword}
-                        id="password" 
-                        required/>
-                    <br/>
+            <form>     
+            
+                <label>Username : </label>   
+                <input 
+                    type="text" 
+                    placeholder="Enter Username" 
+                    // value={state.credentials.username} 
+                    onChange={setUsername}
+                    id="username" 
+                    required/>  
+                <br/>
+                
+                <label>Password : </label>   
+                <input 
+                    type="password" 
+                    placeholder="Enter Password" 
+                    // value={state.credentials.password} 
+                    onChange={setPassword}
+                    id="password" 
+                    required/>
+                <br/>
 
-                    <button type="button" onClick={handleLogin}>Login</button>
+                <button type="button" onClick={[handleLogin, setLoading(true)]}>Login</button>
 
-                    {/* <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/> */}
+            </form>  
 
-                    {/* TODO: 
-                    if authenticated:
-                        goto /complaints/
-                    else:
-                        stay on this page, display error */}
 
-            </form>     
+
+            }
+               
             </center>
         </div>
     )
