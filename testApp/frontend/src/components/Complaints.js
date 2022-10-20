@@ -1,7 +1,6 @@
 // This file contains the code for getting complaints
 import React, {Component, useState, useEffect} from "react";
 
-const API_URL = "http://localhost:8000/"
 const Complaints = () => {    
 
     // useState here is used to manage the response recieved from the Django API
@@ -15,19 +14,24 @@ const Complaints = () => {
         let token_string = "Token " + user_token;
         console.log(token_string);
         
+        const user = {
+            "username": "aadams"
+          }
+
+        // See *** in views.py
+        // This sets the data for the request to be used in the query in views
+        // Query for the thing
+        const query = user.username
+
         // This is the get request that uses the councilperson's token to allow
         // the user to GET the data for complaints from the backend
-        fetch(API_URL+"api/complaints",{
+        fetch("http://localhost:8000/api/complaints" ,{ //?username=" + query
           method: "GET",
           mode: "cors",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": token_string//`Token ${user_token}`
+            "Authorization": "Token 856ae7d2b22179fb6fd88a8b17d0168ae82722ed"//`${token_string}` //`Token ${user_token}`
           },
-          // See *** in views.py
-          // This sets the data for the request to be used in the query in views
-          // Get username
-          data: "aadams"
         })
 
         // This code extracts the json data from the server's
@@ -42,6 +46,7 @@ const Complaints = () => {
         ).catch(
           (error) => {
             console.log("Error fetching complaint data: " + error)
+            // TODO: Send not authorized error message
           }
         )
 

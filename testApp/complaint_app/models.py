@@ -1,4 +1,5 @@
-from hashlib import blake2b # Method to encrypt passwords, faster than SHA-3
+from hashlib import blake2b
+from unittest.util import _MAX_LENGTH # Method to encrypt passwords, faster than SHA-3
 from django.db import models # Basic model object framework thing
 
 from django.contrib.auth.models import User # "User" object from Django's authentication system 
@@ -44,6 +45,12 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 """
 
 # The models below are native python objects that will reflect the data in the sqlite db tables
+
+# This reflects the "authtoken_token" table
+class Token(models.Model):
+  key = models.CharField(max_length=150)
+  created = models.DateTimeField()
+  used_id = models.ForeignKey(User, unique = True, on_delete=models.CASCADE)
 
 # This reflects the "complaint_app_userprofile" table
 class UserProfile(models.Model):

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from .models import UserProfile, Complaint
+from .models import UserProfile, Complaint, Token
 
 # These are serializers, i.e. the things that make 
 # wacky SQL data into Python read-able data and vice versa
@@ -7,10 +7,15 @@ from .models import UserProfile, Complaint
 
 from rest_framework import serializers
 
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = ('key', 'created', 'user_id')
+        
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id','username', 'password', 'first_name','last_name')
+        fields = ('id', 'password', 'last_login', 'is_superuser', 'username', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'first_name')
         # Add encryption to password, and make it write only so it can't be read by get requests
         # TODO: Uncomment and Comment as needed for debugging
         extra_kwags = {'password': {'write_only': True, 'required': True}}
