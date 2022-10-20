@@ -4,6 +4,7 @@ import React, {Component, useState, useEffect} from "react";
 const API_URL = "http://localhost:8000/"
 export default class Complaints extends Component {
 
+    // A constructor so we can override the props and set our state
     constructor(props) {
         super(props);
 
@@ -14,27 +15,23 @@ export default class Complaints extends Component {
     }
 
     populateData() {
+
         fetch(API_URL+'api/complaints',{
           method: "GET",
           mode: "no-cors",
           headers: {
             // 'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "http://localhost:8000/",
-            "Access-Control-Allow-Methods": "GET,OPTIONS,POST,PUT",
             "Access-Control-Allow-Headers": "Content-Type"
           }
         })
           .then((response) => response.json()
-          .then((json) => {
-            console.log(json);
+          .then(data => {
+            console.log(data);
+            this.setState({complaints:data});
           })
-            //     data=>{
-            //         this.setState({complaints:data});
-            //     }
-            // )       
         ).catch(
           (error) => {
-            console.log("Error fetching complaint data:" + error)
+            console.log("Error fetching complaint data: " + error)
           }
         ).finally(
           console.log("bwah")

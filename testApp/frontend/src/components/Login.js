@@ -35,6 +35,7 @@ class Login extends Component {
 
         fetch('http://localhost:8000/login/', {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Authentication': 'Token 04147e7b4c0221ff2e8be1fd5162eaac2dbd9ee5'
@@ -126,9 +127,9 @@ class Login extends Component {
                             required/>
                         <br/>
 
-                        <button onClick={this.handleLogin}>Login</button>
+                        <button type="button" onClick={this.handleLogin}>Login</button>
 
-                        <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/>
+                        {/* <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/> */}
 
                         {/* TODO: 
                         if authenticated:

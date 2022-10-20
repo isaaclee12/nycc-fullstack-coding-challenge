@@ -16,7 +16,7 @@ from rest_framework.decorators import action
 
 from django.contrib.auth.models import User
 
-from django.http.response import JsonResponse
+# from django.http.response import JsonResponse
 from django.contrib.auth import authenticate
 
 from .models import UserProfile, Complaint
@@ -31,54 +31,52 @@ class UserViewSet(viewsets.ModelViewSet):
 class ComplaintViewSet(viewsets.ModelViewSet):
 
   http_method_names = ['get']
-
+  
   def list(self, request):
-    
+
     # Get all complaints from the user's district, i.e. Read method
     # Get all of the data for complaints via the Complain model (This automatically pulls from the SQL DB via Django's ORM)
-    # complaint_list = Complaint.objects.all()
+    # SQL: SELECT * FROM complaints_app_complaints
+    complaint_list = Complaint.objects.all()
 
-    # # The serializer here is basically the ORM that pulls the data from SQLite.
-    # complaint_serializer = ComplaintSerializer(complaint_list, context={"request": request}, many=True)
+    # The serializer here is basically the ORM that pulls the data from SQLite.
+    complaint_serializer = ComplaintSerializer(complaint_list, many=True)
 
-    # # Send it as a JsonResponse for React to process
-    # response = JsonResponse(complaint_serializer.data, safe=False) # safe = false tells django that this is a valid format
-
-    # response = JsonResponse(
-    #   {
-    #     "test": 1
-    #   }
-    # )
-
-    response = Response("testing", status=status.HTTP_200_OK)
-
-    # Set HTTP Headers for the response to whitelist on CORS and such
-    response["Access-Control-Allow-Origin"] = "*" #TODO: Switch this back to this --> "http://localhost:3000/"
-    response["Access-Control-Allow-Methods"] = "GET,OPTIONS,POST,PUT"
-    response["Access-Control-Allow-Headers"] = "Content-Type"
-    # response["Access-Control-Max-Age"] = "1000"
-
-    print(response)
-
-    return (response)
+    # Send it as a JsonResponse for React to process
+    return Response(self.complaint_serializer.data) # safe = false tells django that this is a valid format
 
 
 class OpenCasesViewSet(viewsets.ModelViewSet):
+
   http_method_names = ['get']
+
   def list(self, request):
 
-    # Get only the open complaints from the user's district
-    # SQL_request("SELECT * FROM tablename WHERE COUNCILMEMBER ID = [Id number from login] AND OPEN = true")
+    # Get only the open complaints from the user's district,
+    # i.e. the entries with no closing dates
+    # SQL: SELECT * FROM complaints_app_complaints WHERE closedate = NULL
+    open_complaints_list = Complaint.objects.filter(closedate__isnull)
 
+    # Serialize that data
+    open_complaints_serializer = ComplaintSerializer(open_complaints_list, many=True)
 
-    return Response()
+    # Send it as a response
+    return Response(self.open_complaints_serializer.data)
 
 class ClosedCasesViewSet(viewsets.ModelViewSet):
   http_method_names = ['get'] 
   def list(self, request):
 
-    # Get only complaints that are close from the user's district
-        # SQL_request("SELECT * FROM tablename WHERE COUNCILMEMBER ID = [Id number from login] AND OPEN = false")
+    # Get only complaints that are closed from the user's district
+    # i.e. the entries WITH closing dates, which will always be of the datatype "date"
+    # SQL: SELECT * FROM complaints_app_complaints WHERE typeof(closedate) = date <- this is not how it's done in SQL, just treat this as pseudocode so that people can understand how this code works
+    closed_complaints_list = Complaint.objects.filter(closedate__date)
+
+    # Serialize that data
+    closed_complaints_serializer = ComplaintSerializer(closed_complaints_list, many=True)
+
+    # Send it as a response
+    return Response(self.closed_complaints_serializer.data)
     
     return Response()
     
