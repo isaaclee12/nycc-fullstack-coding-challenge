@@ -64,7 +64,6 @@ const Login = () => {
                     navigate('/complaints');
                 }
             }
-
         ))// response => response.json)
         
 
@@ -73,65 +72,48 @@ const Login = () => {
             navigate('/')
             // TODO: Make this a thing: history.push('login-fail/')
         )
-
-        .finally(
-            // Set loading var to false
-            setLoading(false)
-        );
     };
-
-    // code for loading or not
-    const [loading, setLoading] = useState(false);
 
     return(
         <div>
             {/* LOGIN BELOW */}
             <center> <h1> City Council Complaint Database Login </h1>
 
-            {/* Form that will call handleLogin() on submit TODO: method="POST"*/}
-
-            {loading ? 
-
-            // Loading is true, show loading screen
-
-            <div>
-                <h1>Loading...</h1>
-            </div>
-
-            :
-
-            // Loading is false (default), show login form
+                {/* Form that will call handleLogin() on submit 
+                TODO: method="POST"*/}
+            <form >     
             
-            <form>     
-            
-                <label>Username : </label>   
-                <input 
-                    type="text" 
-                    placeholder="Enter Username" 
-                    // value={state.credentials.username} 
-                    onChange={setUsername}
-                    id="username" 
-                    required/>  
-                <br/>
-                
-                <label>Password : </label>   
-                <input 
-                    type="password" 
-                    placeholder="Enter Password" 
-                    // value={state.credentials.password} 
-                    onChange={setPassword}
-                    id="password" 
-                    required/>
-                <br/>
+                    <label>Username : </label>   
+                    <input 
+                        type="text" 
+                        placeholder="Enter Username" 
+                        // value={state.credentials.username} 
+                        onChange={setUsername}
+                        id="username" 
+                        required/>  
+                    <br/>
+                    
+                    <label>Password : </label>   
+                    <input 
+                        type="password" 
+                        placeholder="Enter Password" 
+                        // value={state.credentials.password} 
+                        onChange={setPassword}
+                        id="password" 
+                        required/>
+                    <br/>
 
-                <button type="button" onClick={[handleLogin, setLoading(true)]}>Login</button>
+                    <button type="button" onClick={handleLogin}>Login</button>
 
-            </form>  
+                    {/* <input type="submit" id="submit" onClick={this.handleLogin} value="Submit"/> */}
 
+                    {/* TODO: 
+                    if authenticated:
+                        goto /complaints/
+                    else:
+                        stay on this page, display error */}
 
-
-            }
-               
+            </form>     
             </center>
         </div>
     )
