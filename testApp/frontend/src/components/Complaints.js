@@ -23,14 +23,18 @@ const Complaints = () => {
           headers: {
             "Content-Type": "application/json",
             "Authorization": token_string//`Token ${user_token}`
-          }
+          },
+          // See *** in views.py
+          // This sets the data for the request to be used in the query in views
+          // Get username
+          data: "aadams"
         })
 
         // This code extracts the json data from the server's
         // Response, logs it, then sets our complaintsList as the data recieved
           .then((response) => response.json()
           .then(data => {
-            console.log(data);
+            // console.table(data);
             setComplaintsList(data);
           })
         
@@ -70,17 +74,17 @@ const Complaints = () => {
                     {/* For each complaint in the data, print a row of html with the data held by each entry */}
                     {complaintsList.map(complaints=>
                         <tr key={complaints.unique_key}>
-                            <td key={complaints.unique_key}></td>
-                            <td key={complaints.account}></td>
-                            <td key={complaints.opendate}></td>
-                            <td key={complaints.complaint_type}></td>
-                            <td key={complaints.descriptor}></td>
-                            <td key={complaints.zip}></td>
-                            <td key={complaints.borough}></td>
-                            <td key={complaints.city}></td>
-                            <td key={complaints.council_district}></td>
-                            <td key={complaints.community_board}></td>
-                            <td key={complaints.closedate}></td>
+                            <td> {complaints.unique_key} </td>
+                            <td> {complaints.account} </td>
+                            <td> {complaints.opendate} </td>
+                            <td> {complaints.complaint_type} </td>
+                            <td> {complaints.descriptor} </td>
+                            <td> {complaints.zip} </td>
+                            <td> {complaints.borough} </td>
+                            <td> {complaints.city} </td>
+                            <td> {complaints.council_district} </td>
+                            <td> {complaints.community_board} </td>
+                            <td> {complaints.closedate} </td>
                         </tr>
                     )}
                 </tbody>

@@ -47,6 +47,32 @@ class ComplaintViewSet(viewsets.ModelViewSet):
   def list(self, request):
 
     # Get all complaints from the user's district, i.e. Read method
+
+    # *** extract the username from the request:
+    # request.data = username
+    """
+    SQL:
+    CouncilPersonWhoseComplaintsWeWant = SELECT first_name, last_name FROM auth_user WHERE username = request.data
+    
+    DistrictWeWant = SELECT district FROM complaints_app_userprofile WHERE 
+      CouncilPersonWhoseComplaintsWeWant.firstname is in complaints_app_userprofile.full_name
+      AND
+      CouncilPersonWhoseComplaintsWeWant.lastname is in complaints_app_userprofile.full_name
+    
+    if District is one digit:
+      append with a "0" at the front
+
+    # account = district the complaint was made to
+    DistrictOfComplaint = account.trim("NYCC")
+    ListOfComplaintsThatWeWant = SELECT * FROM complaints_app_complaints WHERE DistrictOfComplaint = DistrictWeWant
+
+    Serialize(ListOfComplaintsThatWeWant)
+
+    return response(serializer.data)
+    """
+    councilperson = UserProfile.objects.filter(username = request.data)
+    UserProfileSerializer(councilperson)
+
     # Get all of the data for complaints via the Complain model (This automatically pulls from the SQL DB via Django's ORM)
     # SQL: SELECT * FROM complaints_app_complaints
     complaint_list = Complaint.objects.all()
