@@ -9,19 +9,19 @@ router = routers.SimpleRouter()
 # NOTE: Code below links classes in views.py to these server urls
 
 # /api/complaints/
-router.register(r'', ComplaintViewSet, base_name='complaint')
+router.register(r'', ComplaintViewSet, basename='complaint')
 
 # /api/complaints/users
-router.register(r'users', ComplaintViewSet, base_name='complaint')
+router.register(r'users', ComplaintViewSet, basename='complaint')
 
 # api/complaints/openCases
-router.register(r'openCases', OpenCasesViewSet, base_name='openCases')
+router.register(r'openCases', OpenCasesViewSet, basename='openCases')
 
 # api/complaints/closedCases
-router.register(r'closedCases', ClosedCasesViewSet, base_name='closedCases')
+router.register(r'closedCases', ClosedCasesViewSet, basename='closedCases')
 
 # api/complaints/closedCases
-router.register(r'topComplaints', TopComplaintTypeViewSet, base_name='topComplaints')
+router.register(r'topComplaints', TopComplaintTypeViewSet, basename='topComplaints')
 
 # leave this empty in case we need to add any singular url to function maps
 urlpatterns = [

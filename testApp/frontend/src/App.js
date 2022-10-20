@@ -31,7 +31,7 @@ function App() {
       {/* Testing complaints */}
       <Login/>
       
-      <Complaints/>
+      {/* <Complaints/> */}
       
 
     </div>

@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # NOTE: This view automatically processes the POSTed username+pwd JSON and returns a token
-    path('login/', obtain_auth_token, name='login'),
+    path('login/', obtain_auth_token), # , name='login'
 
     # NOTE: The urls in /complaint_app/urls.py extend the urls on the below path
     path('api/complaints/', include('complaint_app.urls')),
