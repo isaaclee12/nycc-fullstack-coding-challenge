@@ -47,79 +47,39 @@ class ComplaintViewSet(viewsets.ModelViewSet):
   
   def list(self, request):
 
-    # Get all complaints from the user's district, i.e. Read method
-
-    # *** extract the username from the request:
-    # request.data = username
+    # Note: all the commented SQL statements below aren't necessarily correct, they're more pseudocode if anything
 
     # get token from request
     token = request.META.get('HTTP_AUTHORIZATION')
 
-
-    # TODO NEXT: TRIM THE TOKEN SO THAT THE FUNCTION BELOW TAKES JUST THE TOKEN AND NOT 
-    # THE "Token " TEXT!!!
+    # Trim the string to remove the "Token " part of the Authorization header
+    # And leave just the numerical part
     token = token[6:]
 
     # SQL: SELECT * FROM authtoken_token WHERE key = token
     tokenData = Token.objects.filter(key__exact = token).get()
-    # return Response({'token': tokenData.key, 'user_id': tokenData.user_id})
-    
-    # return Response(token_target)
-    # token_serializer = TokenSerializer(token_target)
+    user_id = tokenData.user_id
 
-    # return Response(token_serializer.data)
+    # SQL: CouncilPersonWhoseComplaintsWeWant = SELECT * FROM auth_user WHERE username = request.data
+    councilperson = UserProfile.objects.filter(id = user_id).get()
 
+    # Get district num from JSON of single row
+    districtNum = councilperson.district
 
-    # SQL:
-    # Note: all these SQL statements aren't correct, they're more pseudocode if anything
-    # CouncilPersonWhoseComplaintsWeWant = SELECT * FROM auth_user WHERE username = request.data
-    # councilperson = User.objects.filter(username__exact = "aadams").values() #str(request.GET.get('username')))
+    # Append single digit district numbers with a 0 to account for format in complaints table
+    if len(districtNum) == 1:
+      districtNum = "0" + districtNum
 
-    # Serialize the data to turn into native python data
-    # NOTE: Many=True is not necessary here since we only intend to fetch one record
-    # councilperson_serializer = UserSerializer(councilperson)
+    # Append district number with "NYCC" to account for format in complaints table
+    districtNum = "NYCC" + districtNum
 
-    # return Response(councilperson_serializer.data)
+    # Get rows from complaints table where account = districtNum from token
+    complaints = Complaint.objects.filter(account__exact = districtNum)
 
+    # Serialize it.
+    serializer = ComplaintSerializer(complaints, many=True)
 
-    # # DistrictWeWant = SELECT district FROM complaints_app_userprofile WHERE 
-    # #   CouncilPersonWhoseComplaintsWeWant.firstname is in complaints_app_userprofile.full_name
-    # #   AND
-    # #   CouncilPersonWhoseComplaintsWeWant.lastname is in complaints_app_userprofile.full_name
-
-    # # Note: Can't use same field lookup twice, so we chain these
-    # target_district = UserProfile.objects.filter(full_name__contains=councilperson_serializer.data.first_name)
-    # target_district = UserProfile.objects.filter(full_name__contains=councilperson_serializer.data.last_name)
-
-    # # Serialize it.
-    # target_district_serializer = UserProfileSerializer(target_district)
-
-    # # The result from the above observation is the row from complaints_app_userprofile with the entry
-    # # For our councilperson. We will now extract the district number from this table and modify it  
-    # # to match the "NYCCXX" form in complaints_app_complaints
-
-    # # if District is one digit: append with a "0" at the front
-    # district_number_numerical = target_district_serializer.data.district 
-    # if len(district_number_numerical == 1):
-    #   district_number_numerical = "0" + district_number_numerical
-    
-    # # Add "NYCC" to the front to match complaints_app_complaints
-    # NYCC_account_number = "NYCC" + district_number_numerical 
-
-    # # account = district the complaint was made to
-    # # ListOfComplaintsThatWeWant = SELECT * FROM complaints_app_complaints WHERE account = account_number of councilperson
-    # complaints_list_for_this_district = Complaint.objects.filter(account__exact = NYCC_account_number)
-
-    # # TODO: Move the below function somewhere else
-    # # Get all of the data for complaints via the Complain model (This automatically pulls from the SQL DB via Django's ORM)
-    # # SQL: SELECT * FROM complaints_app_complaints
-    # # complaint_list = Complaint.objects.all()
-
-    # # The serializer here is basically the ORM that pulls the data from SQLite.
-    # complaint_serializer = ComplaintSerializer(complaints_list_for_this_district, many=True)
-
-    # # Send it as a JsonResponse for React to process
-    # return Response(complaint_serializer.data) # safe = false tells django that this is a valid format
+    return Response(serializer.data)
 
 
 class OpenCasesViewSet(viewsets.ModelViewSet):

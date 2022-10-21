@@ -30,6 +30,7 @@ const Complaints = () => {
           mode: "cors",
           headers: {
             // "Content-Type": "application/json",
+            // Use token e9129ea22a9b40643214206941c0fda95ba1f1a9 to test 1 => 01 thing
             "Authorization": "Token 856ae7d2b22179fb6fd88a8b17d0168ae82722ed"//`${token_string}` //`Token ${user_token}`
           },
         })
@@ -39,7 +40,7 @@ const Complaints = () => {
           .then((response) => response.json()
           .then(data => {
             console.table("Got back:", data);
-            // setComplaintsList(data);
+            setComplaintsList(data);
           })
         
         // Error catcher
@@ -77,7 +78,7 @@ const Complaints = () => {
                 <tbody>
 
                     {/* For each complaint in the data, print a row of html with the data held by each entry */}
-                    {/* {complaintsList.map(complaints=>
+                    {complaintsList.map(complaints=>
                         <tr key={complaints.unique_key}>
                             <td> {complaints.unique_key} </td>
                             <td> {complaints.account} </td>
@@ -87,11 +88,11 @@ const Complaints = () => {
                             <td> {complaints.zip} </td>
                             <td> {complaints.borough} </td>
                             <td> {complaints.city} </td>
-                            <td> {complaints.council_district} </td>
+                            <td> {complaints.council_dist} </td>
                             <td> {complaints.community_board} </td>
                             <td> {complaints.closedate} </td>
                         </tr>
-                    )} */}
+                    )}
                 </tbody>
             </table>
         </div>
