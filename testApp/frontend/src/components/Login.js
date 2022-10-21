@@ -9,13 +9,6 @@ const Login = () => {
         password: ""
     }
 
-    // This function changes the state-variables to the user's form input
-    // setCredentials = event => {
-    //     const creds = state.credentials; // Make a copy of the credentials object
-    //     creds[event.target.name] = event.target.value; // Set the state var to the value of the form field's var
-    //     this.setState({credentials: creds}); // Set the original values
-    // }
-
     let setUsername = event => {
         state.username = event.target.value;
     }
@@ -29,7 +22,7 @@ const Login = () => {
     // Handle Login
     const handleLogin = event => {
 
-        let redirectTo = "";
+        // let redirectTo = "";
 
         event.preventDefault();
 
@@ -53,11 +46,11 @@ const Login = () => {
         .then(response => response.json()
         .then(
             json => {
-                // Debug
-                console.log(json.token);
 
                 // Set token for session to token returned from API
-                localStorage.setItem("userToken", json.token);
+                sessionStorage.setItem("userToken", json.token);
+
+                console.log(sessionStorage.getItem("userToken"))
 
                 if (json.token !== undefined) {
                     // Send user to the complaints page
