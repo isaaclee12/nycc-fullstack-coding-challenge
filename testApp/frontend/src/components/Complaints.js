@@ -1,5 +1,6 @@
 // This file contains the code for getting complaints
-import React, {Component, useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
+import ComplaintsTableHead from "./ComplaintsTableHead";
 
 const Complaints = () => {    
 
@@ -26,7 +27,8 @@ const Complaints = () => {
           headers: {
             // "Content-Type": "application/json",
             // Use token e9129ea22a9b40643214206941c0fda95ba1f1a9 to test 1 => 01 thing
-            "Authorization": "Token e9129ea22a9b40643214206941c0fda95ba1f1a9"//`${token_string}` //`Token ${user_token}`
+            // Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5 to test null closedates
+            "Authorization": "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5"//`${token_string}` //`Token ${user_token}`
           },
         })
 
@@ -49,48 +51,35 @@ const Complaints = () => {
     }, []) // "[]" here causes a singular run at the first render
 
     return(
-        <div>
-            <h2>This is the complaints list</h2>
+      <div>
 
-            <table>
-                <thead>
-                    <tr>
-                        {/* TODO: Order is currently mirroring SQLite3 DB, rearrange later to make sense. */}
-                        <th>unique_key</th>
-                        <th>account</th>
-                        <th>opendate</th>
-                        <th>complaint_type</th>
-                        <th>descriptor</th>
-                        <th>zip</th>
-                        <th>borough</th>
-                        <th>city</th>
-                        <th>council_district</th>
-                        {/* <!-- TODO figure out if this is the c.board for the complainer's dist. or the dist. complaint was made --> */}
-                        <th>community_board</th>
-                        <th>closedate</th>
+        <h2>This is the complaints list</h2>
+
+        <table>
+
+            <ComplaintsTableHead/>
+            
+            <tbody>
+
+                {/* For each complaint in the data, print a row of html with the data held by each entry */}
+                {complaintsList.map(complaints=>
+                    <tr key={complaints.unique_key}>
+                        <td> {complaints.unique_key} </td>
+                        <td> {complaints.account} </td>
+                        <td> {complaints.opendate} </td>
+                        <td> {complaints.complaint_type} </td>
+                        <td> {complaints.descriptor} </td>
+                        <td> {complaints.zip} </td>
+                        <td> {complaints.borough} </td>
+                        <td> {complaints.city} </td>
+                        <td> {complaints.council_dist} </td>
+                        <td> {complaints.community_board} </td>
+                        <td> {complaints.closedate} </td>
                     </tr>
-                </thead>
-                <tbody>
-
-                    {/* For each complaint in the data, print a row of html with the data held by each entry */}
-                    {complaintsList.map(complaints=>
-                        <tr key={complaints.unique_key}>
-                            <td> {complaints.unique_key} </td>
-                            <td> {complaints.account} </td>
-                            <td> {complaints.opendate} </td>
-                            <td> {complaints.complaint_type} </td>
-                            <td> {complaints.descriptor} </td>
-                            <td> {complaints.zip} </td>
-                            <td> {complaints.borough} </td>
-                            <td> {complaints.city} </td>
-                            <td> {complaints.council_dist} </td>
-                            <td> {complaints.community_board} </td>
-                            <td> {complaints.closedate} </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
+                )}
+            </tbody>
+        </table>
+      </div>
     )
 
 }

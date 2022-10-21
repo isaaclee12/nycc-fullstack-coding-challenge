@@ -73,7 +73,7 @@ def getComplaintDataset(request):
     districtNum = "NYCC" + districtNum
 
     # Get rows from complaints table where account = districtNum from token
-    complaints = Complaint.objects.all() #filter(account__exact = districtNum)
+    complaints = Complaint.objects.filter(account__exact = districtNum)
 
     # Return a queryset that can be worked with all non-default viewsets for complaints
     return complaints

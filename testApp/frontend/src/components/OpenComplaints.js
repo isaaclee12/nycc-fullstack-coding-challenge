@@ -1,21 +1,17 @@
 // This file contains the code for getting complaints
-import React, {Component, useState, useEffect} from "react";
-import {Complaints} from './Complaints'
+import React, {useState, useEffect} from "react";
+import ComplaintsTableHead from "./ComplaintsTableHead";
 
 const OpenComplaints = () => {    
 
-    <Complaints/>
-    
     // useState here is used to manage the response recieved from the Django API
     const [complaintsList, setComplaintsList] = useState([]);
-
-    const user_token = "856ae7d2b22179fb6fd88a8b17d0168ae82722ed" //aadam's token, things to test
 
     // useEffect runs only once on page load and manages HTTP requests via axios
     useEffect(() => {
 
-        let token_string = "Token " + user_token;
-        console.log("Sent in token:", token_string);
+        // let token_string = "Token " + user_token;
+        console.log("Sent in token:", "8dd60cff5f79bbf9b76070fd164a32283b0e0bb5");
         
         const user = {
             "username": "aadams"
@@ -56,23 +52,9 @@ const OpenComplaints = () => {
             <h2>This is the OPEN complaints list</h2>
 
             <table>
-                <thead>
-                    <tr>
-                        {/* TODO: Order is currently mirroring SQLite3 DB, rearrange later to make sense. */}
-                        <th>unique_key</th>
-                        <th>account</th>
-                        <th>opendate</th>
-                        <th>complaint_type</th>
-                        <th>descriptor</th>
-                        <th>zip</th>
-                        <th>borough</th>
-                        <th>city</th>
-                        <th>council_district</th>
-                        {/* <!-- TODO figure out if this is the c.board for the complainer's dist. or the dist. complaint was made --> */}
-                        <th>community_board</th>
-                        <th>closedate</th>
-                    </tr>
-                </thead>
+                
+                <ComplaintsTableHead/>
+
                 <tbody>
 
                     {/* For each complaint in the data, print a row of html with the data held by each entry */}
