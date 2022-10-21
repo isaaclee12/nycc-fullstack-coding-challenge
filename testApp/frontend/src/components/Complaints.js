@@ -12,7 +12,7 @@ const Complaints = () => {
     useEffect(() => {
 
         let token_string = "Token " + user_token;
-        console.log(token_string);
+        console.log("Sent in token:", token_string);
         
         const user = {
             "username": "aadams"
@@ -29,7 +29,7 @@ const Complaints = () => {
           method: "GET",
           mode: "cors",
           headers: {
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             "Authorization": "Token 856ae7d2b22179fb6fd88a8b17d0168ae82722ed"//`${token_string}` //`Token ${user_token}`
           },
         })
@@ -38,8 +38,8 @@ const Complaints = () => {
         // Response, logs it, then sets our complaintsList as the data recieved
           .then((response) => response.json()
           .then(data => {
-            // console.table(data);
-            setComplaintsList(data);
+            console.table("Got back:", data);
+            // setComplaintsList(data);
           })
         
         // Error catcher
@@ -77,7 +77,7 @@ const Complaints = () => {
                 <tbody>
 
                     {/* For each complaint in the data, print a row of html with the data held by each entry */}
-                    {complaintsList.map(complaints=>
+                    {/* {complaintsList.map(complaints=>
                         <tr key={complaints.unique_key}>
                             <td> {complaints.unique_key} </td>
                             <td> {complaints.account} </td>
@@ -91,7 +91,7 @@ const Complaints = () => {
                             <td> {complaints.community_board} </td>
                             <td> {complaints.closedate} </td>
                         </tr>
-                    )}
+                    )} */}
                 </tbody>
             </table>
         </div>

@@ -19,9 +19,10 @@ from django.contrib.auth.models import User
 # from django.http.response import JsonResponse
 from django.contrib.auth import authenticate
 
-from .models import UserProfile, Complaint, Token
-from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer, TokenSerializer
+from .models import UserProfile, Complaint
+from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
 
+# This is the Token model.
 from rest_framework.authtoken.models import Token
 
 # Function that only needs to be run once to generate tokens for all users in the auth_user table.
@@ -54,12 +55,19 @@ class ComplaintViewSet(viewsets.ModelViewSet):
     # get token from request
     token = request.META.get('HTTP_AUTHORIZATION')
 
+
+    # TODO NEXT: TRIM THE TOKEN SO THAT THE FUNCTION BELOW TAKES JUST THE TOKEN AND NOT 
+    # THE "Token " TEXT!!!
+    token = token[6:]
+
     # SQL: SELECT * FROM authtoken_token WHERE key = token
-    token_target = Token.objects.filter(key__exact = token)
+    tokenData = Token.objects.filter(key__exact = token).get()
+    # return Response({'token': tokenData.key, 'user_id': tokenData.user_id})
+    
+    # return Response(token_target)
+    # token_serializer = TokenSerializer(token_target)
 
-    token_serializer = TokenSerializer(token_target)
-
-    return Response(token_serializer.data)
+    # return Response(token_serializer.data)
 
 
     # SQL:

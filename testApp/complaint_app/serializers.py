@@ -6,11 +6,6 @@ from .models import UserProfile, Complaint, Token
 # Pretty self explanitory
 
 from rest_framework import serializers
-
-class TokenSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Token
-        fields = ('key', 'created', 'user_id')
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

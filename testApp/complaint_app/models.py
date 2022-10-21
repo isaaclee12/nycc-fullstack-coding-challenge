@@ -46,12 +46,6 @@ Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
 
 # The models below are native python objects that will reflect the data in the sqlite db tables
 
-# This reflects the "authtoken_token" table
-class Token(models.Model):
-  key = models.CharField(max_length=150)
-  created = models.DateTimeField()
-  used_id = models.ForeignKey(User, unique = True, on_delete=models.CASCADE)
-
 # This reflects the "complaint_app_userprofile" table
 class UserProfile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE)
