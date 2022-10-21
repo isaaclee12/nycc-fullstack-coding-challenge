@@ -7,6 +7,9 @@ import NavBar from './components/NavBar';
 import Complaints from './components/Complaints';
 import Login from './components/Login';
 import Home from './components/Home';
+import OpenComplaints from './components/OpenComplaints'
+import ClosedComplaints from './components/ClosedComplaints'
+import TopComplaints from './components/TopComplaints'
 
 
 function App() {
@@ -22,9 +25,13 @@ function App() {
 
       {/* ROUTES */}
       <Routes>
-        <Route exact path='/' element={<Home/>}></Route>
-        <Route exact path='/login' element={<Login/>}></Route>
-        <Route exact path='/complaints' element={<Complaints/>}></Route>
+        <Route index element={<Home/>}></Route>
+        <Route path='login' element={<Login/>}></Route>
+        <Route path='complaints' element={<Complaints/>}></Route>
+        <Route path='open' element={<OpenComplaints/>}></Route>
+        <Route path='closed' element={<ClosedComplaints/>}></Route>
+        <Route path='top' element={<TopComplaints/>}></Route>
+          
       </Routes>
       
 

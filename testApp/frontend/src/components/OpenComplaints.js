@@ -1,8 +1,11 @@
 // This file contains the code for getting complaints
 import React, {Component, useState, useEffect} from "react";
+import {Complaints} from './Complaints'
 
-const Complaints = () => {    
+const OpenComplaints = () => {    
 
+    <Complaints/>
+    
     // useState here is used to manage the response recieved from the Django API
     const [complaintsList, setComplaintsList] = useState([]);
 
@@ -20,13 +23,13 @@ const Complaints = () => {
 
         // This is the get request that uses the councilperson's token to allow
         // the user to GET the data for complaints from the backend
-        fetch("http://localhost:8000/api/complaints/allCases" ,{ //?username=" + query
+        fetch("http://localhost:8000/api/complaints/openCases" ,{ //?username=" + query
           method: "GET",
           mode: "cors",
           headers: {
             // "Content-Type": "application/json",
-            // Use token e9129ea22a9b40643214206941c0fda95ba1f1a9 to test 1 => 01 thing
-            "Authorization": "Token e9129ea22a9b40643214206941c0fda95ba1f1a9"//`${token_string}` //`Token ${user_token}`
+            // Use token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5 to test null
+            "Authorization": "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5"//`${token_string}` //`Token ${user_token}`
           },
         })
 
@@ -50,7 +53,7 @@ const Complaints = () => {
 
     return(
         <div>
-            <h2>This is the complaints list</h2>
+            <h2>This is the OPEN complaints list</h2>
 
             <table>
                 <thead>
@@ -95,4 +98,4 @@ const Complaints = () => {
 
 }
 
-export default Complaints;
+export default OpenComplaints;

@@ -18,15 +18,20 @@ const Complaints = () => {
             "username": "aadams"
           }
 
+        // See *** in views.py
+        // This sets the data for the request to be used in the query in views
+        // Query for the thing
+        const query = user.username
+
         // This is the get request that uses the councilperson's token to allow
         // the user to GET the data for complaints from the backend
-        fetch("http://localhost:8000/api/complaints/allCases" ,{ //?username=" + query
+        fetch("http://localhost:8000/api/complaints" ,{ //?username=" + query
           method: "GET",
           mode: "cors",
           headers: {
             // "Content-Type": "application/json",
             // Use token e9129ea22a9b40643214206941c0fda95ba1f1a9 to test 1 => 01 thing
-            "Authorization": "Token e9129ea22a9b40643214206941c0fda95ba1f1a9"//`${token_string}` //`Token ${user_token}`
+            "Authorization": "Token 856ae7d2b22179fb6fd88a8b17d0168ae82722ed"//`${token_string}` //`Token ${user_token}`
           },
         })
 

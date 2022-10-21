@@ -1,18 +1,28 @@
 from django.urls import path
 from rest_framework import routers
-from .views import generateTokens, UserViewSet, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet
+from .views import generateTokens, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet
 
 # Create a simple rest framework router
+# NOTE: trailing_slash=False prevents 404's with open/closed/top complaints
+# As trailing slashes cause a double slash in the URLs
 router = routers.SimpleRouter()
 
 # NOTE: These urls extend the urls in testApp/urls.py on path /api/complaints/
 # NOTE: Code below links classes in views.py to these server urls
 
-# /api/complaints/
-router.register(r'', ComplaintViewSet, basename='complaint')
+# NOTE for whoever reviews this: I chose to change the first endpoint from
+# '' to 'allCases' as it was the easiest solution to a 404 error I got
+# when trying to GET to /api/complaints/openCases from the client.
+# To my understanding, '' as a URL patter, causes an extra slash to be added
+# in the url patterns below it. 
 
-# /api/complaints/users
-router.register(r'users', ComplaintViewSet, basename='complaint')
+# I do not know if this is best practice, but I chose to do it in order
+# to focus on functionality, and I believe it is a valid tactic given
+# That users probably don't care what your backend url endpoints are
+# named anyways
+
+# /api/complaints/allCases
+router.register(r'allCases', ComplaintViewSet, basename='complaint')
 
 # api/complaints/openCases
 router.register(r'openCases', OpenCasesViewSet, basename='openCases')
