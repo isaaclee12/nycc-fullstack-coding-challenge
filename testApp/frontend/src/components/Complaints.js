@@ -2,17 +2,18 @@
 import React, {useState, useEffect} from "react";
 import ComplaintsTableHead from "./ComplaintsTableHead";
 
+
 const Complaints = () => {    
 
     // useState here is used to manage the response recieved from the Django API
     const [complaintsList, setComplaintsList] = useState([]);
 
-    const user_token = "856ae7d2b22179fb6fd88a8b17d0168ae82722ed" //aadam's token, things to test
-
+    // sessionStorage.setItem("userToken", "856ae7d2b22179fb6fd88a8b17d0168ae82722ed") //aadam's token, things to test
+    
     // useEffect runs only once on page load and manages HTTP requests via axios
     useEffect(() => {
 
-        let token_string = "Token " + user_token;
+        let token_string = "Token " + sessionStorage.getItem("userToken");
         console.log("Sent in token:", token_string);
         
         const user = {
@@ -26,9 +27,9 @@ const Complaints = () => {
           mode: "cors",
           headers: {
             // "Content-Type": "application/json",
-            // Use token e9129ea22a9b40643214206941c0fda95ba1f1a9 to test 1 => 01 thing
-            // Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5 to test null closedates
-            "Authorization": "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5"//`${token_string}` //`Token ${user_token}`
+            // Replace token_string with "Token e9129ea22a9b40643214206941c0fda95ba1f1a9" to test 1 => 01 thing
+            // Replace token_string with "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5" to test null closedates
+            "Authorization": token_string//`${token_string}` //`Token ${user_token}`
           },
         })
 

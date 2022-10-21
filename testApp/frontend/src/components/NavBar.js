@@ -2,19 +2,31 @@
 import React, {Component, useState, useEffect} from "react";
 import {NavLink} from 'react-router-dom';
 
+
+
 const NavBar = () => { 
     
-    // const isAuth = true
-    const [isAuth, setIsAuth] = useState(false);
+    function handleLogout() {
+        sessionStorage.removeItem("userToken");
+        console.log(sessionStorage.getItem("userToken"));
+        setIsLoggedIn(false);
+    }
+
+    // const isLoggedIn = true
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        if (localStorage.getItem('token') !== null) {
-        setIsAuth(true);
+        // If we have a token, say that we're logged in, and vice versa
+        if (sessionStorage.getItem("userToken") !== null) {
+            console.log("LOGGING IN WITH:" + sessionStorage.getItem("userToken"));
+            setIsLoggedIn(true);
         }
-    }, []);
+        
+    }, 5000);
 
     return(
         <div>
+            <p> TOKEN: {sessionStorage.getItem("userToken")} </p>
             <nav>
                 <ul>
                     <li>
@@ -22,7 +34,8 @@ const NavBar = () => {
                             Home
                         </NavLink>
                     </li>
-                    {isAuth === false ? (
+                    
+                    {isLoggedIn === false ? (
                         <div>
                             <li>
                                 <NavLink to="/login">
@@ -30,6 +43,7 @@ const NavBar = () => {
                                 </NavLink>
                             </li>
                         </div>
+
                     ) : (
                         <div>
                             <li>
@@ -39,7 +53,7 @@ const NavBar = () => {
                             </li>
 
                             <li>
-                                <NavLink to="/logout">
+                                <NavLink to="/" onClick={handleLogout}>
                                     Logout
                                 </NavLink>
                             </li>
