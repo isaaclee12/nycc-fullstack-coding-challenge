@@ -4,17 +4,17 @@ const ComplaintsTableHead = () => {
     return(
         <thead>
             <tr>
-                <th>unique_key</th>
-                <th>account</th>
-                <th>opendate</th>
-                <th>complaint_type</th>
-                <th>descriptor</th>
-                <th>zip</th>
-                <th>borough</th>
-                <th>city</th>
-                <th>council_district</th>
-                <th>community_board</th>
-                <th>closedate</th>
+                <th>Unique Key</th>
+                <th>District Complained To</th>
+                <th>Open Date</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>ZIP</th>
+                <th>Borough</th>
+                <th>City</th>
+                <th>District of Complainer</th>
+                <th>Community Board</th>
+                <th>Close Date</th>
             </tr>
         </thead>
     )

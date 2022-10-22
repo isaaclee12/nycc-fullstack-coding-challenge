@@ -17,6 +17,10 @@ const NavBar = () => {
 
     useEffect(() => {
 
+        // NOTE for whoever reviews this: I'm aware that the code below
+        // may be a silly solution for keeping the navbar updated based on
+        // login status, but given the time constraint this is what
+        // I put together in order to make it functional.  
         setInterval(() => {
             // If we have a token, say that we're logged in, and vice versa
             if (sessionStorage.getItem("userToken") !== null) {
@@ -67,6 +71,11 @@ const NavBar = () => {
                             <li>
                                 <NavLink to="/top">
                                     Top 3 Complaint Types
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/constituent-complaints">
+                                    Constituent Complaints
                                 </NavLink>
                             </li>
 

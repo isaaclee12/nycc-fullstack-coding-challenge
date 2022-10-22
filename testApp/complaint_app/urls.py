@@ -1,6 +1,6 @@
 from django.urls import path
 from rest_framework import routers
-from .views import generateTokens, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet
+from .views import generateTokens, ComplaintViewSet, OpenCasesViewSet, ClosedCasesViewSet, TopComplaintTypeViewSet, ConstituentComplaintViewSet
 
 # Create a simple rest framework router
 # NOTE: trailing_slash=False prevents 404's with open/closed/top complaints
@@ -32,6 +32,9 @@ router.register(r'closedCases', ClosedCasesViewSet, basename='closedCases')
 
 # api/complaints/closedCases
 router.register(r'topComplaints', TopComplaintTypeViewSet, basename='topComplaints')
+
+# api/complaints/constituentComplaints
+router.register(r'constituentComplaints', ConstituentComplaintViewSet, basename='topComplaints')
 
 # leave this empty in case we need to add any singular url to function maps
 urlpatterns = [

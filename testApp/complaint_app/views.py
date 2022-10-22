@@ -43,10 +43,15 @@ def generateTokens(request):
     return Response("Error: Could not generate tokens")
 
 
-# This function encapsulates the code necessary to get the full dataset for all future viewsets
-def getComplaintDataset(request):
+# This function gets the district number for based on the user's token
+"""NOTE for reviewer: I understand that this may be inefficient in practice,
+as this does involve quite a number of calls to the backend. The reason I did
+it this was in order to prevent the passing of credentials (username or pwd) to
+the API. I would appreciate feedback as to what would actually be best practice here.
+"""
 
-    # Note: all the commented SQL statements below aren't necessarily correct, they're more pseudocode if anything
+def getDistrictNum(request):
+    # Note: all the SQL statements in comments below aren't necessarily syntactically correct, they're more pseudocode
 
     # get token from request
     token = request.META.get('HTTP_AUTHORIZATION')
@@ -71,6 +76,14 @@ def getComplaintDataset(request):
 
     # Append district number with "NYCC" to account for format in complaints table
     districtNum = "NYCC" + districtNum
+
+    return districtNum
+
+
+# This function encapsulates the code necessary to get the full dataset for all future viewsets
+def getComplaintDataset(request):
+
+    districtNum = getDistrictNum(request)
 
     # Get rows from complaints table where account = districtNum from token
     complaints = Complaint.objects.filter(account__exact = districtNum)
@@ -130,9 +143,6 @@ class ClosedCasesViewSet(viewsets.ModelViewSet):
 class TopComplaintTypeViewSet(viewsets.ModelViewSet):
   http_method_names = ['get']
 
-  def get_queryset(self):
-    return Complaint.objects.all()
-
   def list(self, request):
 
     complaintsQueryset = getComplaintDataset(request)
@@ -148,3 +158,26 @@ class TopComplaintTypeViewSet(viewsets.ModelViewSet):
 
     # Send it as a response
     return Response(top_complaints_list)
+
+class ConstituentComplaintViewSet(viewsets.ModelViewSet):
+  http_method_names = ['get']
+
+  def list(self, request):
+
+    """Create new endpoint and viewset that should return all complaints 
+    that were made by constituents that live in the logged in council 
+    member’s district. (i.e., John Doe is the Council Member for District 1, 
+    and he clicks on the new button. His dashboard table now only shows 
+    complaints where conucil_dist is NYCC01)."""
+
+    # Get district number
+    districtNum = getDistrictNum(request)
+
+    # Get rows that match the council_district in the complaints_app_complaints table
+    constituent_complaints_list = Complaint.objects.filter(council_dist__exact = districtNum)
+
+    # Serialize it
+    constituent_complaints_serializer = ComplaintSerializer(constituent_complaints_list, many=True)
+
+    # Send it back to the client
+    return Response(constituent_complaints_serializer.data)

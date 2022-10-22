@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import OpenComplaints from './components/OpenComplaints'
 import ClosedComplaints from './components/ClosedComplaints'
+import ConstituentComplaints from './components/ConstituentComplaints'
 import TopComplaints from './components/TopComplaints'
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='complaints' element={<Complaints/>}></Route>
         <Route path='open' element={<OpenComplaints/>}></Route>
         <Route path='closed' element={<ClosedComplaints/>}></Route>
+        <Route path='constituent-complaints' element={<ConstituentComplaints/>}></Route>
         <Route path='top' element={<TopComplaints/>}></Route>
           
       </Routes>
