@@ -83,7 +83,8 @@ const Login = () => {
                         // value={state.credentials.username} 
                         onChange={setUsername}
                         id="username" 
-                        required/>  
+                        required
+                        class="outline ml-4 my-2"/>  
                     <br/>
                     
                     <label>Password : </label>   
@@ -93,7 +94,8 @@ const Login = () => {
                         // value={state.credentials.password} 
                         onChange={setPassword}
                         id="password" 
-                        required/>
+                        required
+                        class="outline ml-4 my-2"/>
                     <br/>
 
                     <button type="button" onClick={handleLogin}>Login</button>

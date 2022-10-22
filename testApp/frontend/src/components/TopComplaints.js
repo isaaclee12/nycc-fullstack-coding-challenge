@@ -47,9 +47,9 @@ const Complaints = () => {
 
     return(
         <div>
-            <h2>This is the TOP complaints list</h2>
+            <h2 class="text-2xl my-4">Top 3 Complaint Types</h2>
             
-                <ol>
+                <ol class="list-decimal"> 
                     {complaintsList.map(complaints=>
                     <li key={complaints.complaint_type}>
                         {complaints.complaint_type} ({complaints.count} Complaints)

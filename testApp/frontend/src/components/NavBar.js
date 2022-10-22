@@ -33,51 +33,65 @@ const NavBar = () => {
 
     return(
         <div>
+
+            
             {/* <p> TOKEN: {sessionStorage.getItem("userToken")} </p> */}
-            <nav class="md lg relative flex-wrap items-center justify-between bg-gray-100 shadow-lg sticky top-0 container-fluid navbar-collapse">
-                       
-                        <NavLink class="text-2xl m-4" to="/">
-                            New York City Council Complaint Database
+            <nav class="border-b">
+                <ul>
+                    <li>
+                        <NavLink to="/">
+                            Home
                         </NavLink>
+                    </li>
+                    
                     
                     {isLoggedIn === false ? (
-
-                        <NavLink class="mx-4" to="/login">
-                            Login
-                        </NavLink>
+                        <div>
+                            <li>
+                                <NavLink to="/login">
+                                    Login
+                                </NavLink>
+                            </li>
+                        </div>
 
                     ) : (
-
                         <div>
+                            <li>
+                                <NavLink to="/complaints">
+                                    All Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/open">
+                                    Open Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/closed">
+                                    Closed Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/top">
+                                    Top 3 Complaint Types
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/constituent-complaints">
+                                    Constituent Complaints
+                                </NavLink>
+                            </li>
 
-                            <NavLink class="mx-4" to="/complaints">
-                                All Complaints To Your District
-                            </NavLink>
-
-                            <NavLink class="mx-4" to="/open">
-                                Open Complaints
-                            </NavLink>
-
-                            <NavLink class="mx-4" to="/closed">
-                                Closed Complaints
-                            </NavLink>
-
-                            <NavLink class="mx-4" to="/top">
-                                Top 3 Complaint
-                            </NavLink>
-                            
-                            <NavLink class="mx-4" to="/constituent-complaints">
-                                Complaints from Constituents Residing In Your District
-                            </NavLink>
-
-                            <NavLink class="mx-4" to="/" onClick={handleLogout}>
-                                Logout
-                            </NavLink>
-
+                            <li>
+                                <NavLink to="/" onClick={handleLogout}>
+                                    Logout
+                                </NavLink>
+                            </li>
                         </div>
                     )
                     }
 
+                </ul>
             </nav>
         </div>
     )

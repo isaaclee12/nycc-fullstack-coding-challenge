@@ -50,7 +50,7 @@ const Complaints = () => {
     return(
       <div>
 
-        <h2>This is the complaints list</h2>
+        <h2 class="text-2xl my-4">Complaints from Constituents In Your District</h2>
 
         <table>
 
@@ -60,7 +60,7 @@ const Complaints = () => {
 
                 {/* For each complaint in the data, print a row of html with the data held by each entry */}
                 {complaintsList.map(complaints=>
-                    <tr key={complaints.unique_key}>
+                    <tr key={complaints.unique_key} class="border-black text-center text-sm">
                         <td> {complaints.unique_key} </td>
                         <td> {complaints.account} </td>
                         <td> {complaints.opendate} </td>
