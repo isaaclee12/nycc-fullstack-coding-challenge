@@ -1,6 +1,61 @@
-# 
+# New York City Council Full Stack Coding Challenge - Isaac Lee's Submission
 
-# New York City Council Full Stack Coding Challenge
+## Front End
+- Removed Boilerplate Code in React
+- Login.js takes a username and password and sends it to obtain_auth_token, which returns the token for that user
+- Token is stored in sessionStorage
+- NavBar changes to show complaints lists and logout button on change
+- Complaints list make GET requests to pull data from API
+- Update React Script and added Tailwind.css
+
+## API/Middleware
+- Went through all the files and documented what everything does
+- Took time to learn the django REST framework module via the docs
+- Designed the code necessary for the views based on that knowledge
+- Created the code in views.py
+
+## Back End
+- Analyzed the contents of each table
+- Mapped how calls could be made to map data to other data, e.g. how to get from Token --> Complaints
+- Used SQL queries to test certain things, e.g. see which councilmembers have open complaints for testing
+
+## Tech Added/Used
+- django-cors-headers: Made CORS issues go away
+- SQLiteStudio: Extremely useful for viewing the DB and testing, i.e. querying the DB in order to compare SQL results to the results that made it to the front end
+- Postman: I didn't use this as much but it was useful for testing out some HTTP requests without needing the front end
+- Tailwind: CSS styling for the front end
+
+
+## Explaining My Process:
+
+- For context, I knew the basics of React and Django going into this project, but the Django REST Framework was new to me. Luckily, I am a fast learner
+
+- I started off writing pseudocode
+- I Tried throwing together stuff to see if it would work
+- Naturally, nothing worked
+- I hit a wall trying to figure out how to do things
+- Took a step back and went through each part of the code and documented exactly what each thing does based on Documentation for React and Django
+- I tarted looking at bugs more carefully and looked up multiple resources when trying to crush them
+- This is around when i installed django-cors-headers
+- Then I hit another wall when trying to filter the complaints from the database
+- I took a break and went outside for an hour. Somehow, being in nature and just looking up things of StackOverflow on my phone and writing out the code I'd need by hand allowed me to come back to my computer later and complete all the views.py code I needed in just a couple of hours
+- Using what I'd learned for that last part, I was easily able to complete the first bonus item of filtering the complaints based on constituents
+- I tried then doing the User -> UserProfile flattening thing but I hit a wall there too. Had I more time, I believe I could do it.
+- Ultimately, while this may not be the most polished project, I know that completing it demonstrates my ability to learn extremely quickly, my excellent problem solving skills, my self-starter attitude, and  well as my determination to work hard and complete challenging tasks.
+
+
+## If I had more time, I'd want to do the following:
+
+- Given I'd had an extra 24 hours, I'd want to complete the Bonus task of flattening User to UserProfile
+- Figured out how to use corsheaders on the older version of Django
+- Figure out how to better encapsulate the table and useState/useEffect logic in the Complaints components to reduce repition 
+- And, of course, to make the website look nicer
+- Make better documentation
+- Instead of using session.storage, use a secure cookie to prevent XSS attacks
+- Update other modules to prevent critical vulnerabilities
+
+
+# Original Instructions:
 You will have **1 full week** to complete this challenge starting when you received the challenge from our office. You can submit your challenge using our [Google Form](https://forms.gle/HXCXFiVvFAJ3WzAc7).
 
 ## The Task

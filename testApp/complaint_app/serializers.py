@@ -11,7 +11,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     # TODO: BONUS Task: Flatten out the User object inside of UserProfile.
     class Meta:
         model = UserProfile
-        fields = ('id','user','full_name','district','party','borough','password', 'last_login', 'is_superuser', 'username', 'last_name', 'email', 'is_staff', 'is_active', 'date_joined', 'first_name')
+        fields = ('id','user','full_name','district','party','borough')
         # Add encryption to password, and make it write only so it can't be read by get requests
         # TODO: Uncomment and Comment as needed for debugging
         extra_kwags = {'password': {'write_only': True, 'required': True}}

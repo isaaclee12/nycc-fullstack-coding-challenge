@@ -33,6 +33,9 @@ const NavBar = () => {
 
     return(
         <div>
+
+            
+        <p class="text-2xl">tailwind test</p>
             {/* <p> TOKEN: {sessionStorage.getItem("userToken")} </p> */}
             <nav>
                 <ul>
@@ -41,6 +44,7 @@ const NavBar = () => {
                             Home
                         </NavLink>
                     </li>
+                    
                     
                     {isLoggedIn === false ? (
                         <div>

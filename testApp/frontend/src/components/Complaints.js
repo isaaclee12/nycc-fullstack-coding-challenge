@@ -52,15 +52,15 @@ const Complaints = () => {
 
         <h2>This is the complaints list</h2>
 
-        <table>
+        <table class="border-collapse border border-slate-400 table-auto">
 
             <ComplaintsTableHead/>
             
-            <tbody>
+            <tbody class="border-black">
 
                 {/* For each complaint in the data, print a row of html with the data held by each entry */}
                 {complaintsList.map(complaints=>
-                    <tr key={complaints.unique_key}>
+                    <tr key={complaints.unique_key} class="border-black">
                         <td> {complaints.unique_key} </td>
                         <td> {complaints.account} </td>
                         <td> {complaints.opendate} </td>
