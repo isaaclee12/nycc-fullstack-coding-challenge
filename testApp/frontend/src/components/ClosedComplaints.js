@@ -12,17 +12,8 @@ const OpenComplaints = () => {
     // useEffect runs only once on page load and manages HTTP requests via axios
     useEffect(() => {
 
-        let token_string = "Token " + user_token;
+        let token_string = "Token " + sessionStorage.getItem("userToken");
         console.log("Sent in token:", token_string);
-        
-        const user = {
-            "username": "aadams"
-          }
-
-        // See *** in views.py
-        // This sets the data for the request to be used in the query in views
-        // Query for the thing
-        const query = user.username
 
         // This is the get request that uses the councilperson's token to allow
         // the user to GET the data for complaints from the backend
@@ -31,8 +22,9 @@ const OpenComplaints = () => {
           mode: "cors",
           headers: {
             // "Content-Type": "application/json",
-            // Use token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5 to test null closedates
-            "Authorization": "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5"//`${token_string}` //`Token ${user_token}`
+            // Replace token_string with "Token e9129ea22a9b40643214206941c0fda95ba1f1a9" to test 1 => 01 thing
+            // Replace token_string with "Token 8dd60cff5f79bbf9b76070fd164a32283b0e0bb5" to test null closedates
+            "Authorization": token_string
           },
         })
 

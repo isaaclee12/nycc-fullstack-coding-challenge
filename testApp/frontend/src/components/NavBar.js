@@ -25,11 +25,11 @@ const NavBar = () => {
             }
         }, []);
         
-    }, 5000);
+    }, 1000);
 
     return(
         <div>
-            <p> TOKEN: {sessionStorage.getItem("userToken")} </p>
+            {/* <p> TOKEN: {sessionStorage.getItem("userToken")} </p> */}
             <nav>
                 <ul>
                     <li>
@@ -51,7 +51,22 @@ const NavBar = () => {
                         <div>
                             <li>
                                 <NavLink to="/complaints">
-                                    Complaints
+                                    All Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/open">
+                                    Open Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/closed">
+                                    Closed Complaints
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/top">
+                                    Top 3 Complaint Types
                                 </NavLink>
                             </li>
 
