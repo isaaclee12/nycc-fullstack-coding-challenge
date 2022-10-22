@@ -40,8 +40,8 @@ For clients to authenticate, the token key should be included in the Authorizati
 The key should be prefixed by the string literal "Token", with whitespace separating the two strings.
 For example:
 
-Authorization: Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b
-
+Authorization: Token 0045b09199c62bcf9418ad236bb0....
+(Not an actual token)
 """
 
 # The models below are native python objects that will reflect the data in the sqlite db tables
@@ -53,6 +53,20 @@ class UserProfile(models.Model):
   district = models.CharField(max_length=5, blank=True, default="")
   party = models.CharField(max_length=50, blank=True, default="", null=True)
   borough = models.CharField(max_length=50, blank=True, default="")
+
+  # Flatten User to UserProfile
+  # Cols to add:
+
+  first_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  last_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  is_staff = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  is_active = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  date_joined = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  username = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  is_superuser = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  last_login = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+
+
   def __str__(self):
     return str(self.user)
     
