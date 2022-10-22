@@ -16,11 +16,14 @@ const NavBar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        // If we have a token, say that we're logged in, and vice versa
-        if (sessionStorage.getItem("userToken") !== null) {
-            console.log("LOGGING IN WITH:" + sessionStorage.getItem("userToken"));
-            setIsLoggedIn(true);
-        }
+
+        setInterval(() => {
+            // If we have a token, say that we're logged in, and vice versa
+            if (sessionStorage.getItem("userToken") !== null) {
+                console.log("LOGGING IN WITH:" + sessionStorage.getItem("userToken"));
+                setIsLoggedIn(true);
+            }
+        }, []);
         
     }, 5000);
 
