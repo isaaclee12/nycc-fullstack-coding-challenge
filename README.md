@@ -28,7 +28,7 @@
 
 ## Explaining My Process:
 
-- For context, I knew the basics of React and Django going into this project, but the Django REST Framework was new to me. Luckily, I am a fast learner
+- For context, I knew the basics of React and Django going into this project, but the Django REST Framework was new to me. Luckily, I am an extremely fast learner.
 
 - I started off writing pseudocode
 - I Tried throwing together stuff to see if it would work
