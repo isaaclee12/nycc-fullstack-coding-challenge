@@ -48,7 +48,10 @@ Authorization: Token 0045b09199c62bcf9418ad236bb0....
 
 # This reflects the "complaint_app_userprofile" table
 class UserProfile(models.Model):
-  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  user = models.OneToOneField(User, on_delete=models.CASCADE)  
+  first_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  last_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+
   full_name = models.CharField(max_length=150, blank=True, default="")
   district = models.CharField(max_length=5, blank=True, default="")
   party = models.CharField(max_length=50, blank=True, default="", null=True)
@@ -57,14 +60,16 @@ class UserProfile(models.Model):
   # Flatten User to UserProfile
   # Cols to add:
 
-  first_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
-  last_name = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+
   is_staff = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
   is_active = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
   date_joined = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
-  username = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
-  is_superuser = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
   last_login = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  
+  username = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  password = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
+  
+  is_superuser = models.OneToOneField(User, on_delete=models.CASCADE, related_name = "+")
 
 
   def __str__(self):

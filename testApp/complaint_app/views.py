@@ -21,7 +21,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 from .models import UserProfile, Complaint
-from .serializers import UserSerializer, UserProfileSerializer, ComplaintSerializer
+from .serializers import UserProfileSerializer, ComplaintSerializer
 
 # This is used for the "Count" method in TopComplaints
 from django.db.models import Count
@@ -65,7 +65,7 @@ def getDistrictNum(request):
     user_id = tokenData.user_id
 
     # SQL: CouncilPersonWhoseComplaintsWeWant = SELECT * FROM auth_user WHERE username = request.data
-    councilperson = UserProfile.objects.filter(id = user_id).get()
+    councilperson = UserProfile.objects.filter(id__exact = user_id).get()
 
     # Get district num from JSON of single row
     districtNum = councilperson.district
